@@ -22,6 +22,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { auth, db } from '../config/firebase'
 import { addDoc, collection, query, where } from 'firebase/firestore'
 import { Conversation } from '../types'
+import ConversationSelect from './ConversationSelect'
 
 const StyledContainer = styled.div`
 	height: 100vh;
@@ -29,6 +30,16 @@ const StyledContainer = styled.div`
 	max-width: 350px;
 	overflow-y: auto;
 	border-right: 1px solid whitesmoke;
+
+	
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 `
 
 const StyledHeader = styled.div`
@@ -159,6 +170,15 @@ function Sidebar() {
 			<StyledSidebarButton onClick={openNewConversationDialog}>
 				Start a new conversation
 			</StyledSidebarButton>
+
+			{/* List of conversations */}
+			{conversationsSnapshot?.docs.map(conversation => (
+				<ConversationSelect 
+					key={conversation.id}
+					id={conversation.id}
+					conversationUsers={(conversation.data() as Conversation).users}
+				/>
+			))}
 
 			<Dialog
 				open={isOpenNewConversationDialog}
