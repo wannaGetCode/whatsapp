@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import { useAuthState } from "react-firebase-hooks/auth"
 import styled from "styled-components"
+import ConversationScreen from "../../components/ConversationScreen"
 import Sidebar from "../../components/Sidebar"
 import { auth, db } from "../../config/firebase"
 import { Conversation, IMessage } from "../../types"
@@ -49,7 +50,7 @@ const ConversationPage = ({ conversation, messages }: ConversationPageProps) => 
       <Sidebar />
 
       <StyledConversationContainer>
-        {/* <ConversationScreen conversation={conversation} messages={messages} /> */}
+        <ConversationScreen conversation={conversation} messages={messages} />
       </StyledConversationContainer>
     </StyledContainer>
   )
